@@ -1,0 +1,61 @@
+; Lista de Estados
+q0,q1,q2,q3,q4,q5,q6,q7,q_aceita,q_rejeita
+; Alfabeto de Entrada e Alfabeto da Fita
+a,b
+a,b,X,Y,Z,W,M,B
+; Simbolo de Branco
+B
+; Estado Inicial
+q0
+; Estados Finais
+q_aceita
+; Regras de Transicao (Origem, Le, Escreve, Direcao [R/L/S], Destino)
+; --- Fase 1: marca esquerda (q0), vai ao fim (q1), marca direita (q2), volta (q3)
+q0,X,X,R,q0
+q0,Y,Y,R,q0
+q0,a,X,R,q1
+q0,b,Y,R,q1
+q0,Z,Z,L,q7
+q0,W,W,L,q7
+q0,B,B,S,q_aceita
+q1,a,a,R,q1
+q1,b,b,R,q1
+q1,Z,Z,R,q1
+q1,W,W,R,q1
+q1,B,B,L,q2
+q2,Z,Z,L,q2
+q2,W,W,L,q2
+q2,a,Z,L,q3
+q2,b,W,L,q3
+q2,X,X,S,q_rejeita
+q2,Y,Y,S,q_rejeita
+q3,a,a,L,q3
+q3,b,b,L,q3
+q3,X,X,L,q3
+q3,Y,Y,L,q3
+q3,Z,Z,L,q3
+q3,W,W,L,q3
+q3,B,B,R,q0
+; --- Fase 2: compara (q4 acha X/Y, q5 espera Z, q6 espera W, q7 volta ao inicio)
+q4,M,M,R,q4
+q4,X,M,R,q5
+q4,Y,M,R,q6
+q4,Z,Z,S,q_rejeita
+q4,W,W,S,q_rejeita
+q4,B,B,S,q_aceita
+q5,X,X,R,q5
+q5,Y,Y,R,q5
+q5,M,M,R,q5
+q5,Z,M,L,q7
+q5,W,W,S,q_rejeita
+q6,X,X,R,q6
+q6,Y,Y,R,q6
+q6,M,M,R,q6
+q6,W,M,L,q7
+q6,Z,Z,S,q_rejeita
+q7,X,X,L,q7
+q7,Y,Y,L,q7
+q7,Z,Z,L,q7
+q7,W,W,L,q7
+q7,M,M,L,q7
+q7,B,B,R,q4
